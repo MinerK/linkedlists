@@ -12,6 +12,7 @@ void add(Node*& first, int value);
 int value(Node *first, int index);
 void remove(Node *&first, int index = 0);
 int length(Node* first);
+void PrintList(Node * first);
 
 int main()
 {
@@ -26,11 +27,17 @@ int main()
 		cout << "Enter next value, 0 to stop: "; cin >> x;
 	}
 
-	int n = length(List1);
 	cout << "Length of the list: " << length(List1) << endl;
 
+	PrintList(List1);
 
+	int index_to_del;
+	cout << "Index of a node to be deleted: "; cin >> index_to_del;
+	remove(List1, index_to_del);
 
+	PrintList(List1);
+
+	system("pause");
 	return 0;
 }
 
@@ -64,8 +71,10 @@ int value(Node * first, int index)
 void remove(Node *& first, int index)
 {
 	Node *cursor = first;
-	for (int i = 0; i < index; cursor = cursor->next, i++);
-	delete[] cursor;
+	for (int i = 0; i < index-1; cursor = cursor->next, i++);
+	Node* trash = cursor->next;
+	cursor->next = trash->next;
+	delete[] trash;
 }
 
 int length(Node * first)
@@ -78,4 +87,13 @@ int length(Node * first)
 		i++;
 	}
 	return i;
+}
+
+void PrintList(Node * first)
+{
+	int n = length(first);
+	for (int i = 0; i <= n; i++)
+	{
+		cout<< i << " : "<< value(first, i)<< endl;
+	}
 }
