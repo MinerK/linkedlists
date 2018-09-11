@@ -6,6 +6,7 @@ struct Node
 {
 	int value;
 	Node* next;
+	Node* prev;
 };
 
 void add(Node*& first, int value);
@@ -45,6 +46,7 @@ void add(Node *& first, int value)
 {
 	Node* newnode = new Node;
 	newnode->next = nullptr;
+	newnode->prev = nullptr;
 	newnode->value = value;
 	if (first==nullptr)
 	{
@@ -52,12 +54,26 @@ void add(Node *& first, int value)
 	}
 	else
 	{
-		Node* last = first;
-		while (last->next!=nullptr)
+		if (first->next == nullptr)
 		{
-			last = last->next;
+			newnode->next = first;
+			newnode->prev = first;
+			first->next = newnode;
+			first->prev = newnode;
+			
 		}
-		last->next = newnode;
+		else
+		{
+			Node* last = first;
+			while (last->next != first)
+			{
+				last = last->next;
+			}
+			newnode->next = first;
+			newnode->prev = last;
+			last->next = newnode;
+			first->prev = newnode;
+		}
 	}
 }
 
@@ -70,18 +86,26 @@ int value(Node * first, int index)
 
 void remove(Node *& first, int index)
 {
-	Node *cursor = first;
-	for (int i = 0; i < index-1; cursor = cursor->next, i++);
-	Node* trash = cursor->next;
-	cursor->next = trash->next;
-	delete[] trash;
+	if(index == 0)
+	{
+		delete[] first;
+		first = nullptr;
+	}
+	else
+	{
+		Node *cursor = first;
+		for (int i = 0; i < index; cursor = cursor->next, i++);
+		(cursor->prev)->next = cursor->next;
+		(cursor->next)->prev = cursor->prev;
+		delete[] cursor;
+	}
 }
 
 int length(Node * first)
 {
 	Node *cursor = first;
 	int i = 0;
-	while (cursor != nullptr && cursor->next != nullptr)
+	while (cursor != nullptr && cursor->next != first)
 	{
 		cursor = cursor->next;
 		i++;
