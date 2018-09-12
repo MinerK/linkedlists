@@ -88,8 +88,14 @@ void remove(Node *& first, int index)
 {
 	if(index == 0)
 	{
-		delete[] first;
-		first = nullptr;
+		if (first->next != nullptr && first->prev != nullptr)
+		{
+			(first->prev)->next = first->next;
+			(first->next)->prev = first->prev;
+			Node* tmp = first->next;
+			delete[] first;
+			first = tmp;
+		}
 	}
 	else
 	{
