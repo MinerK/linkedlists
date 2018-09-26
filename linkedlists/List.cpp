@@ -157,15 +157,17 @@ List<T>* List<T>::filter(bool(*include)(T))
 	while (cursor != first);
 	return newlist;
 }
-//
-//template <typename T>
-//template <typename U>
-//List<U> *map(U(*transform)(T))
-//{
-//	List<U>* newlist = copy();
-//	return newlist;
-//}
-//
+
+template <typename T>
+template <typename U>
+List<U>* List<T>::map(U(*transform)(T))
+{
+	List<U>* newlist = new List<U>(transform(first->value));
+	for (Node* cursor = first->next; cursor != first; cursor = cursor->next)
+		newlist->add(transform(cursor->value));
+	return newlist;
+}
+
 //template <typename T>
 //template <typename U>
 //U reduce(U initial, U(*next_result)(U, T))

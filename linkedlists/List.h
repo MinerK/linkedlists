@@ -21,8 +21,8 @@ public:
 	List<T>* copy();
 	List<T>* sorted(bool(*compare)(T, T));
 
-	//template <typename U>
-	//List<U>* map(U(*transform)(T));
+	template <typename U>
+	List<U>* map(U(*transform)(T));
 
 	List<T> *filter(bool(*include)(T));
 

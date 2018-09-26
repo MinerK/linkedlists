@@ -1,9 +1,11 @@
 #include "List.h"
 #include "List.cpp"
 #include <iostream>
+#include <string>
 using namespace std;
 
 typedef int value_type;
+typedef string value_type2;
 
 bool compare1(value_type, value_type);
 bool is_even(value_type);
@@ -51,6 +53,10 @@ int main()
 	cout << "New list after filtering: " << endl;
 	list2->Print();
 
+	List<string>* strlist = list1.map(to_string);
+	cout << "As a string: " << endl;
+	strlist->Print();
+
     
     
     system("pause");
@@ -66,3 +72,6 @@ bool is_even(value_type x)
 {
 	return x % 2 == 0;
 }
+
+
+
