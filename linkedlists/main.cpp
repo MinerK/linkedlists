@@ -3,9 +3,10 @@
 #include <iostream>
 using namespace std;
 
-typedef float value_type;
+typedef int value_type;
 
 bool compare1(value_type, value_type);
+bool is_even(value_type);
 
 int main()
 {
@@ -38,11 +39,18 @@ int main()
     List<value_type>* list2 = list1.sorted(compare1);
 	cout << "New list after sorting 1: " << endl;
     list2->Print();
+
 	list2->~List();
 	list2 = list1.sorted([](value_type a, value_type b) {return a < b; });
 
 	cout << "New list after sorting 2: " << endl;
 	list2->Print();
+
+	list2->~List();
+	list2 = list1.filter(is_even);
+	cout << "New list after filtering: " << endl;
+	list2->Print();
+
     
     
     system("pause");
@@ -52,4 +60,9 @@ int main()
 bool compare1(value_type a, value_type b)
 {
 	return a > b;
+}
+
+bool is_even(value_type x)
+{
+	return x % 2 == 0;
 }

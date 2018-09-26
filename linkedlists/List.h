@@ -18,9 +18,16 @@ public:
     //List<T>* sorted(bool ascending);
 
 	void sort(bool(*compare)(T, T));
-	List<T> *sorted(bool(*compare)(T, T));
+	List<T>* copy();
+	List<T>* sorted(bool(*compare)(T, T));
 
+	//template <typename U>
+	//List<U>* map(U(*transform)(T));
 
+	List<T> *filter(bool(*include)(T));
+
+	//template <typename U>
+	//U reduce(U initial, U(*next_result)(U, T));
     
 private:
     struct Node

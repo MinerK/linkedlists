@@ -15,6 +15,7 @@ List<T>::List(T v)
     first->prev = first;
     first->value = v;
 }
+
 template <typename T>
 List<T>::~List()
 {
@@ -126,13 +127,49 @@ void List<T>::sort(bool(*compare)(T, T))
 }
 
 template <typename T>
+List<T>* List<T>::copy()
+{
+	List<T>* newlist = new List<T>(first->value);
+	for (Node* cursor = first->next; cursor!=first; cursor=cursor->next)
+		newlist->add(cursor->value);
+	return newlist;
+}
+
+template <typename T>
 List<T>* List<T>::sorted(bool(*compare)(T, T))
 {
-    int n=length();
-    List<T>* newlist = new List<T>(first->value);
-    for (int i = 1; i<n; i++)
-        newlist->add(operator[](i));
+    List<T>* newlist = copy();
     newlist->sort(compare);
     return newlist;
 }
 
+template<class T>
+List<T>* List<T>::filter(bool(*include)(T))
+{
+	List<T>* newlist = new List<T>;
+	Node* cursor = first; 
+	do
+	{
+		if (include(cursor->value))
+			newlist->add(cursor->value);
+		cursor = cursor->next;
+	}
+	while (cursor != first);
+	return newlist;
+}
+//
+//template <typename T>
+//template <typename U>
+//List<U> *map(U(*transform)(T))
+//{
+//	List<U>* newlist = copy();
+//	return newlist;
+//}
+//
+//template <typename T>
+//template <typename U>
+//U reduce(U initial, U(*next_result)(U, T))
+//{
+//	U result;
+//	return result;
+//}
