@@ -1,13 +1,16 @@
 #include "List.h"
+#include "List.cpp"
 #include <iostream>
 using namespace std;
 
+typedef int value_type;
+
 int main()
 {
-    int x;
+    value_type x;
     cout << "Enter next value, 0 to stop: "; cin >> x;
     
-    List list1;
+    List<value_type> list1;
     
     while (x!=0)
     {
@@ -32,8 +35,8 @@ int main()
     bool asc;
     cout<<"Ascending sort? 0=false: ";
     cin>>asc;
-    List list2 = list1.sorted(asc);
-    list2.Print();
+    List<value_type>* list2 = list1.sorted(asc);
+    list2->Print();
 
     
     

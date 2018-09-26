@@ -15,7 +15,7 @@ public:
     int length();
     void Print();
     void sort (bool ascending);
-    List sorted (bool ascending);
+    List<T>* sorted(bool ascending);
     
 private:
     struct Node

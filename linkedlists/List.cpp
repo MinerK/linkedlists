@@ -24,6 +24,7 @@ List<T>::~List()
     }
     std::cout << "List was deleted." << std::endl;
 }
+
 template <typename T>
 void List<T>::add(T value)
 {
@@ -45,6 +46,7 @@ void List<T>::add(T value)
         
     }
 }
+
 template <typename T>
 T& List<T>::operator[] (int index)
 {
@@ -52,6 +54,7 @@ T& List<T>::operator[] (int index)
     for (int i = 0; i < index; cursor = cursor->next, i++);
     return cursor->value;
 }
+
 template <typename T>
 void List<T>::remove(int index)
 {
@@ -78,6 +81,7 @@ void List<T>::remove(int index)
         }
     }
 }
+
 template <typename T>
 int List<T>::length()
 {
@@ -92,6 +96,7 @@ int List<T>::length()
     }
     return i;
 }
+
 template <typename T>
 void List<T>::Print()
 {
@@ -101,6 +106,12 @@ void List<T>::Print()
         std::cout << i << " : " << operator[] (i) << std::endl;
     }
 }
+
+template<class T>
+void List<T>::sort(bool(*compare)(T, T))
+{
+}
+
 template <typename T>
 void List<T>::sort(bool ascending)
 {
@@ -120,13 +131,13 @@ void List<T>::sort(bool ascending)
 }
 
 template <typename T>
-List<T> List<T>::sorted(bool ascending)
+List<T>* List<T>::sorted(bool ascending)
 {
     int n=length();
-    List newlist(first->value);
+    List<T>* newlist = new List<T>(first->value);
     for (int i = 1; i<n; i++)
-        newlist.add(operator[](i));
-    newlist.sort(ascending);
+        newlist->add(operator[](i));
+    newlist->sort(ascending);
     return newlist;
 }
 
