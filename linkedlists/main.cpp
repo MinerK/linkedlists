@@ -3,7 +3,9 @@
 #include <iostream>
 using namespace std;
 
-typedef int value_type;
+typedef float value_type;
+
+bool compare1(value_type, value_type);
 
 int main()
 {
@@ -32,14 +34,22 @@ int main()
     {
         cout << i << " : " << list1[i] << endl;
     }
-    bool asc;
-    cout<<"Ascending sort? 0=false: ";
-    cin>>asc;
-    List<value_type>* list2 = list1.sorted(asc);
-    list2->Print();
 
+    List<value_type>* list2 = list1.sorted(compare1);
+	cout << "New list after sorting 1: " << endl;
+    list2->Print();
+	list2->~List();
+	list2 = list1.sorted([](value_type a, value_type b) {return a < b; });
+
+	cout << "New list after sorting 2: " << endl;
+	list2->Print();
     
     
     system("pause");
     return 0;
+}
+
+bool compare1(value_type a, value_type b)
+{
+	return a > b;
 }

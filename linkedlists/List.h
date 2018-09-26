@@ -14,8 +14,13 @@ public:
     void remove(int);
     int length();
     void Print();
-    void sort (bool ascending);
-    List<T>* sorted(bool ascending);
+    //void sort (bool ascending);
+    //List<T>* sorted(bool ascending);
+
+	void sort(bool(*compare)(T, T));
+	List<T> *sorted(bool(*compare)(T, T));
+
+
     
 private:
     struct Node

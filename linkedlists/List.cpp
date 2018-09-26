@@ -107,23 +107,18 @@ void List<T>::Print()
     }
 }
 
-template<class T>
-void List<T>::sort(bool(*compare)(T, T))
-{
-}
-
 template <typename T>
-void List<T>::sort(bool ascending)
+void List<T>::sort(bool(*compare)(T, T))
 {
     for (Node* cursor1 = first; cursor1->next!=first; cursor1=cursor1->next)
     {
         Node* mixptr = cursor1;
         for (Node* cursor2 = cursor1->next; cursor2!=first; cursor2=cursor2->next)
-            if (ascending? mixptr->value > cursor2->value : mixptr->value < cursor2->value)
+            if (compare(mixptr->value,cursor2->value))
                 mixptr = cursor2;
         if (cursor1 != mixptr)
         {
-            int tmp = mixptr->value;
+            T tmp = mixptr->value;
             mixptr->value = cursor1 -> value;
             cursor1 -> value = tmp;
         }
@@ -131,13 +126,13 @@ void List<T>::sort(bool ascending)
 }
 
 template <typename T>
-List<T>* List<T>::sorted(bool ascending)
+List<T>* List<T>::sorted(bool(*compare)(T, T))
 {
     int n=length();
     List<T>* newlist = new List<T>(first->value);
     for (int i = 1; i<n; i++)
         newlist->add(operator[](i));
-    newlist->sort(ascending);
+    newlist->sort(compare);
     return newlist;
 }
 
